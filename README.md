@@ -34,8 +34,6 @@ If you have any questions or suggestions, join the [Discord server](https://disc
     - Works with Pterodactyl Panel API for managed hosting
     - Supports direct shell commands for self-hosted environments
  
-- 🔐 **Whitelist Verification** - Optionally validates players against per-server whitelists before letting them join or start the server
-
 - ⚙️ **Highly Configurable**:
     - Customizable shutdown delay
     - Multiple server status checking methods

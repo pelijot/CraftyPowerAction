@@ -1,5 +1,6 @@
 package fr.pickaria.pterodactylpoweraction;
 
+import com.google.gson.JsonSyntaxException;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.DisconnectEvent;
 import com.velocitypowered.api.event.player.KickedFromServerEvent;
@@ -15,7 +16,6 @@ import fr.pickaria.messager.Messager;
 import fr.pickaria.messager.components.Text;
 import fr.pickaria.pterodactylpoweraction.component.RunCommand;
 import fr.pickaria.pterodactylpoweraction.configuration.ConfigurationLoader;
-import fr.pickaria.pterodactylpoweraction.online.PingOnlineChecker;
 import net.kyori.adventure.text.Component;
 import org.slf4j.Logger;
 
@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 public class ConnectionListener {
     private final ProxyServer proxy;
@@ -57,29 +58,9 @@ public class ConnectionListener {
     @Subscribe()
     public void onServerPreConnect(ServerPreConnectEvent event) {
         RegisteredServer originalServer = event.getOriginalServer();
-      
-        // If the server is not managed, simply ignore it
-        if (!this.isManagedServer(originalServer)) {
-            return;
-        }
 
-        String serverName = originalServer.getServerInfo().getName();
-        if (configurationLoader.getConfiguration().shouldCheckWhitelist(serverName)) {
-            try {
-                boolean whitelisted = configurationLoader.getAPI()
-                        .isPlayerWhitelisted(serverName, event.getPlayer().getUsername())
-                        .join();
-                if (!whitelisted) {
-                    event.setResult(ServerPreConnectEvent.ServerResult.denied());
-                    event.getPlayer().disconnect(Component.translatable("whitelist.not.whitelisted"));
-                    return;
-                }
-            } catch (Exception e) {
-                logger.error("Failed to check whitelist for server {}", serverName, e);
-                event.setResult(ServerPreConnectEvent.ServerResult.denied());
-                event.getPlayer().disconnect(Component.translatable("whitelist.verification.failed"));
-                return;
-            }
+        if (!this.isManagedServer(originalServer) || !isAllowedToStart(originalServer, event)) {
+            return;
         }
 
         RegisteredServer previousServer = event.getPreviousServer();
@@ -107,6 +88,37 @@ public class ConnectionListener {
             }
 
             startServerForPlayer(originalServer, event.getPlayer());
+        }
+    }
+
+    private boolean isAllowedToStart(RegisteredServer originalServer, ServerPreConnectEvent event) {
+        String serverName = originalServer.getServerInfo().getName();
+        Player player = event.getPlayer();
+        if (configurationLoader.getConfiguration().shouldCheckWhitelist(serverName)) {
+            try {
+                boolean whitelisted = configurationLoader.getAPI()
+                        .isPlayerWhitelisted(serverName, player.getUsername())
+                        .get();
+                if (!whitelisted) {
+                    event.setResult(ServerPreConnectEvent.ServerResult.denied());
+                    notifyPlayerOrDisconnect(player, "whitelist.not.whitelisted");
+                    return false;
+                }
+            } catch (ExecutionException | InterruptedException | JsonSyntaxException e) {
+                logger.error("Failed to check whitelist for server {}", serverName, e);
+                event.setResult(ServerPreConnectEvent.ServerResult.denied());
+                notifyPlayerOrDisconnect(player, "whitelist.verification.failed");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void notifyPlayerOrDisconnect(Player player, String key) {
+        if (player.getCurrentServer().isPresent()) {
+            messager.error(player, key);
+        } else {
+            player.disconnect(Component.translatable(key));
         }
     }
 
