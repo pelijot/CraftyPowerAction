@@ -57,10 +57,29 @@ public class ConnectionListener {
     @Subscribe()
     public void onServerPreConnect(ServerPreConnectEvent event) {
         RegisteredServer originalServer = event.getOriginalServer();
-
+      
         // If the server is not managed, simply ignore it
         if (!this.isManagedServer(originalServer)) {
             return;
+        }
+
+        String serverName = originalServer.getServerInfo().getName();
+        if (configurationLoader.getConfiguration().shouldCheckWhitelist(serverName)) {
+            try {
+                boolean whitelisted = configurationLoader.getAPI()
+                        .isPlayerWhitelisted(serverName, event.getPlayer().getUsername())
+                        .join();
+                if (!whitelisted) {
+                    event.setResult(ServerPreConnectEvent.ServerResult.denied());
+                    event.getPlayer().disconnect(Component.translatable("whitelist.not.whitelisted"));
+                    return;
+                }
+            } catch (Exception e) {
+                logger.error("Failed to check whitelist for server {}", serverName, e);
+                event.setResult(ServerPreConnectEvent.ServerResult.denied());
+                event.getPlayer().disconnect(Component.translatable("whitelist.verification.failed"));
+                return;
+            }
         }
 
         RegisteredServer previousServer = event.getPreviousServer();
