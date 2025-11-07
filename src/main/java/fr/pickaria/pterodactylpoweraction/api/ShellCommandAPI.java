@@ -3,6 +3,7 @@ package fr.pickaria.pterodactylpoweraction.api;
 import com.google.gson.Gson;
 import fr.pickaria.pterodactylpoweraction.Configuration;
 import fr.pickaria.pterodactylpoweraction.PowerActionAPI;
+import org.apache.commons.text.StringTokenizer;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -80,7 +81,11 @@ public class ShellCommandAPI implements PowerActionAPI {
 
     private CompletableFuture<Void> runCommands(Optional<String> workingDirectory, String command) {
         return CompletableFuture.runAsync(() -> {
-            ProcessBuilder pb = new ProcessBuilder(command.split(" "));
+            org.apache.commons.text.StringTokenizer tokenizer = new StringTokenizer(command);
+            tokenizer.setQuoteChar('\'');
+            String[] args = tokenizer.getTokenArray();
+
+            ProcessBuilder pb = new ProcessBuilder(args);
             workingDirectory.ifPresent((value) -> pb.directory(new File(value)));
             try {
                 pb.start().onExit().get();
