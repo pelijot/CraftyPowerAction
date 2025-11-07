@@ -8,50 +8,69 @@
 A resource-saving Velocity plugin that automatically manages your Minecraft servers by starting them on demand and
 shutting them down when idle, using either the [Pterodactyl](https://pterodactyl.io/) API or shell commands.
 
+> [!IMPORTANT]  
+> Support for this project is limited as I don't use it in production anymore.
+
 ---
 
 ## Community & Support
 
 If you have any questions or suggestions, join the [Discord server](https://discord.gg/M2a9dxJPRy)!
 
-## ✨ Key Features
+## Features
 
-- 🔌 **Energy & Resource Saving** - Automatically shuts down empty servers after a configurable idle period (default: 1
-  hour)
+### 🔌 Energy & Resource Saving
 
-- 🚀 **On-Demand Server Startup** - Starts servers only when players need them, optimizing resource usage
+Automatically shuts down empty servers after a configurable time with no players connected (default: 1 hour).
 
-- 🔄 **Seamless Player Experience**:
-    - Redirects players to a lightweight waiting server during startup
-    - Automatically transfers players when their destination server is ready
-    - Keeps players informed with status messages throughout the process
+### 🚀 On-Demand Server Startup
 
-- 🛡️ **Kick Protection** - Optionally redirects kicked players to your waiting server instead of disconnecting them
+Starts servers only when players connect, optimizing resource usage.
 
-- 🔐 **Whitelist Verification** - Optionally validates players against per-server whitelists before letting them join or start the server
+### 🔄 Seamless Player Experience
 
-- 🧰 **Flexible Implementation**:
-    - Works with Pterodactyl Panel API for managed hosting
-    - Supports direct shell commands for self-hosted environments
- 
-- ⚙️ **Highly Configurable**:
-    - Customizable shutdown delay
-    - Multiple server status checking methods
-    - Configurable shutdown behavior on proxy restart
+Redirects players to a lightweight waiting server during startup and transfers them automatically once the server is
+ready.
 
-- 🌐 **Multilingual Support** - Automatically translates messages based on the client's language (English, German,
-  French)
+### 🛡️ Kick Protection
 
-- 🔍 **Diagnostic Tools** - Built-in doctor command to validate your configuration and troubleshoot issues
+Optionally redirects players to the waiting server when they are kicked from the backend server instead of disconnecting
+them.
+
+### 🔐 Whitelist Verification
+
+Validate players against per-server whitelists before letting them join or start the server.
+
+### 🧰 Flexible Implementation
+
+Works with the Pterodactyl Panel API or via direct shell commands for self-hosted setups.
+
+### ⚙️ Highly Configurable
+
+Supports customizable shutdown delays, multiple server status check methods, and adjustable shutdown behavior on proxy
+restart.  
+👉 See the [Wiki](https://github.com/Quozul/PterodactylPowerAction/wiki) for full details.
+
+### 🌐 Multilingual Support
+
+Automatically translates messages based on the client’s language (English, German, French).
+
+### 🔍 Diagnostic Tools
+
+Includes a built-in doctor command to validate configuration and help troubleshoot issues.
 
 ## How it Works
 
-When a player tries to connect to a stopped server, they're temporarily sent to your waiting server while
+When a player tries to connect to an offline server, they're temporarily sent to your waiting server while
 PterodactylPowerAction starts their requested destination. Once the server is ready, they're automatically transferred.
-The plugin monitors player activity and intelligently shuts down empty servers to save resources.
+The plugin monitors player activity and shuts down empty servers to save resources.
 
 ![server-is-starting.png](docs/assets/server-is-starting.png)  
 _Shader is Photon._
+
+### Plus Version
+
+You can find more features on the [plus](https://github.com/Quozul/PterodactylPowerAction/tree/plus) branch.
 
 ---
 
@@ -64,7 +83,7 @@ on [the wiki of this GitHub repository](https://github.com/Quozul/PterodactylPow
 
 ## Waiting/Limbo servers
 
-Here is a small list of recommended lightweights servers software to use as waiting server:
+Here is a small list of recommended lightweight servers software to use as waiting server:
 
 - [PicoLimbo](https://github.com/Quozul/PicoLimbo)
 - [NanoLimbo](https://www.spigotmc.org/resources/86198/)
