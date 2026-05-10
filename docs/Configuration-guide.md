@@ -1,21 +1,21 @@
 # Configuration Guide
 
-This document explains how to configure the PterodactylPowerAction plugin for Velocity, which allows you to
-automatically start and stop Minecraft servers using either the Pterodactyl API or shell commands.
+This document explains how to configure the CraftyPowerAction plugin for Velocity, which allows you to
+automatically start and stop Minecraft servers using either the Crafty API or shell commands.
 
 ## Configuration File Overview
 
 The configuration file uses YAML format and supports two main modes of operation:
 
-- Pterodactyl API integration
+- Crafty API integration
 - Shell command execution
 
 ## Basic Configuration Structure
 
 ```yaml
-type: "pterodactyl"  # or "shell"
+type: "crafty"  # or "shell"
 waiting_server_name: "limbo"  # Optional
-ping_method: "ping"  # or "pterodactyl"
+ping_method: "ping"  # or "crafty"
 maximum_ping_duration: 60
 shutdown_after_duration: 3600
 redirect_to_waiting_server_on_kick: true
@@ -28,22 +28,22 @@ shutdown_behaviour: "shutdown_all"
 
 | Option                               | Description                                                                             | Default Value    | Possible Values                                   |
 |--------------------------------------|-----------------------------------------------------------------------------------------|------------------|---------------------------------------------------|
-| `type`                               | The method used to control servers                                                      | Required         | `"pterodactyl"`, `"shell"`                        |
+| `type`                               | The method used to control servers                                                      | Required         | `"crafty"`, `"shell"`                        |
 | `waiting_server_name`                | The server players will be sent to while waiting for their destination server to start  | Optional         | Any server defined in `velocity.toml`, `null`     |
 | `start_waiting_server_on_startup`    | Whether to automatically start the waiting server when the proxy starts if it's offline | `true`           | `true`, `false`                                   |
-| `ping_method`                        | Method used to check if a server is running                                             | `"ping"`         | `"ping"`, `"pterodactyl"`                         |
+| `ping_method`                        | Method used to check if a server is running                                             | `"ping"`         | `"ping"`, `"crafty"`                         |
 | `maximum_ping_duration`              | Maximum time (in seconds) to wait for a server to respond                               | `60`             | Any positive integer                              |
 | `shutdown_after_duration`            | Time (in seconds) after which an empty server will be shut down                         | `3600`           | Any positive integer                              |
 | `redirect_to_waiting_server_on_kick` | Whether to redirect players to the waiting server when kicked from a backend server     | `false`          | `true`, `false`                                   |
 | `shutdown_behaviour`                 | What to do with servers when the proxy shuts down                                       | `"shutdown_all"` | `"shutdown_all"`, `"shutdown_empty"`, `"nothing"` |
 
-### Pterodactyl-Specific Settings
+### Crafty-Specific Settings
 
-When `type` or `ping_method` is set to `"pterodactyl"`, the following settings are required:
+When `type` or `ping_method` is set to `"crafty"`, the following settings are required:
 
 ```yaml
-pterodactyl_api_key: "ptlc_xxx"
-pterodactyl_client_api_base_url: "https://example.com/api/client"
+panel_api_key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.xxxxxxx.xxxxxxx"
+panel_api_base_url: "https://example.com/api/v2"
 servers:
   limbo: "21b8d887-7d47-4a0b-bbfe-4c4a6318dcf0" # Short form
   survival:
@@ -53,9 +53,9 @@ servers:
 
 | Option                            | Description                                                |
 |-----------------------------------|------------------------------------------------------------|
-| `pterodactyl_api_key`             | Client API key from Pterodactyl panel                      |
-| `pterodactyl_client_api_base_url` | Base URL for the Pterodactyl client API                    |
-| `servers`                         | Mapping of Velocity server names to Pterodactyl server IDs |
+| `panel_api_key`                   | API key from Crafty panel                                  |
+| `panel_api_base_url`              | Base URL for the Crafty API                                |
+| `servers`                         | Mapping of Velocity server names to Crafty server IDs      |
 | `whitelist`                       | Enable whitelist verification using `whitelist.json` file  |
 
 Each server entry may either be a simple string containing the server's identifier or a map with an `identifier` field. When using the map form, an optional `whitelist` boolean can enable whitelist verification for that server.
@@ -97,12 +97,12 @@ The `ping_method` setting determines how server availability is checked:
 | Value           | Description                                                                    |
 |-----------------|--------------------------------------------------------------------------------|
 | `"ping"`        | Uses Velocity's built-in ping mechanism (lighter and usually faster)           |
-| `"pterodactyl"` | Uses the Pterodactyl API (may be more accurate but requires API configuration) |
+| `"crafty"`      | Uses the Crafty API (may be more accurate but requires API configuration)      |
 
 **Important notes:**
 
-- When using the `"pterodactyl"` ping method, you must include the waiting server's ID in the `servers` map
-- The `"pterodactyl"` ping method is only compatible with the `"pterodactyl"` type and cannot be used with the `"shell"`
+- When using the `"crafty"` ping method, you must include the waiting server's ID in the `servers` map
+- The `"crafty"` ping method is only compatible with the `"crafty"` type and cannot be used with the `"shell"`
   type
 
 ## Waiting Server Configuration
@@ -130,12 +130,12 @@ server:
 
 ## Example Configurations
 
-### Pterodactyl Example
+### Crafty Example
 
 ```yaml
-type: "pterodactyl"
-pterodactyl_api_key: "ptlc_xxx"
-pterodactyl_client_api_base_url: "https://panel.example.com/api/client"
+type: "crafty"
+panel_api_key: "ptlc_xxx"
+panel_api_base_url: "https://panel.example.com/api/v2"
 servers:
   limbo: "21b8d887-7d47-4a0b-bbfe-4c4a6318dcf0"
   survival:
@@ -144,7 +144,7 @@ servers:
   creative:
     identifier: "f33b8741-e46c-4386-9281-05eaa2e88333"
 waiting_server_name: "limbo"
-ping_method: "pterodactyl"
+ping_method: "crafty"
 maximum_ping_duration: 60
 shutdown_after_duration: 3600
 redirect_to_waiting_server_on_kick: false
@@ -175,7 +175,7 @@ shutdown_behaviour: "shutdown_all"
 
 ## Notes and Warnings
 
-- When using Pterodactyl behind a proxy (like CloudFlare DNS proxy), you may encounter connection issues.
+- When using Crafty behind a proxy (like CloudFlare DNS proxy), you may encounter connection issues.
 - The `cd` command will not work in shell commands. Use the `working_directory` setting instead.
 - Shell command mode has not been extensively tested on Windows.
 - If you add a new server to `velocity.toml`, you'll need to reload Velocity's configuration separately.

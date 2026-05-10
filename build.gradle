@@ -5,15 +5,16 @@ plugins {
     id 'xyz.jpenilla.run-velocity' version "3.0.2"
 }
 
-group = 'fr.pickaria'
+group = 'observer.pelijot'
 version = '1.8.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-    maven {
-        name "pickariaRepositorySnapshots"
-        url "https://maven.pickaria.fr/snapshots"
-    }
+    mavenLocal()
+//    maven {
+//        name "pickariaRepositorySnapshots"
+//        url "https://maven.pickaria.fr/snapshots"
+//    }
     maven {
         name = "papermc-repo"
         url = "https://repo.papermc.io/repository/maven-public/"

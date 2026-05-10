@@ -1,20 +1,20 @@
 # Commands Guide
 
-This document outlines the available commands for the PterodactylPowerAction plugin for Velocity, which allows server
+This document outlines the available commands for the CraftyPowerAction plugin for Velocity, which allows server
 administrators to manage Minecraft servers through in-game commands.
 
 ## Command Overview
 
-All PterodactylPowerAction commands use the base command:
+All CraftyPowerAction commands use the base command:
 
 ```
-/pterodactylpoweraction
+/craftypoweraction
 ```
 
 For convenience, the plugin also supports the shortened alias:
 
 ```
-/ppa
+/cpa
 ```
 
 ## Permission Requirements
@@ -22,7 +22,7 @@ For convenience, the plugin also supports the shortened alias:
 All commands require the following permission:
 
 ```
-pterodactylpoweraction.use
+craftypoweraction.use
 ```
 
 ## Available Commands
@@ -32,10 +32,10 @@ pterodactylpoweraction.use
 Reloads the plugin's configuration from disk.
 
 ```
-/pterodactylpoweraction reload
+/craftypoweraction reload
 ```
 
-**Aliases:** `/ppa reload`
+**Aliases:** `/cpa reload`
 
 **Description:**  
 This command reloads the plugin's configuration file, allowing you to apply changes without restarting the proxy server.
@@ -53,10 +53,10 @@ Any modifications to the configuration file will take effect immediately after r
 Manually shuts down servers with no players.
 
 ```
-/pterodactylpoweraction clear [delay=0]
+/craftypoweraction clear [delay=0]
 ```
 
-**Aliases:** `/ppa clear [delay=0]`
+**Aliases:** `/cpa clear [delay=0]`
 
 **Parameters:**
 
@@ -68,8 +68,8 @@ specified delay. This is useful for manually freeing up resources when servers a
 
 **Examples:**
 
-- `/ppa clear` - Immediately shut down all empty servers
-- `/ppa clear 30` - Shut down all servers after a 30-second delay if they're still empty
+- `/cpa clear` - Immediately shut down all empty servers
+- `/cpa clear 30` - Shut down all servers after a 30-second delay if they're still empty
 
 ---
 
@@ -78,12 +78,12 @@ specified delay. This is useful for manually freeing up resources when servers a
 Validates the plugin's configuration and performs diagnostic checks.
 
 ```
-/pterodactylpoweraction doctor
+/craftypoweraction doctor
 ```
 
-**Aliases:** `/ppa doctor`
+**Aliases:** `/cpa doctor`
 
 **Description:**  
 The `doctor` command is a troubleshooting tool that performs a series of diagnostic checks on your
-PterodactylPowerAction setup.
+CraftyPowerAction setup.
 Running this command can help identify and resolve potential issues with your configuration.

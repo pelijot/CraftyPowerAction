@@ -1,21 +1,12 @@
-# PterodactylPowerAction
-
-[![GitHub CI](https://img.shields.io/github/actions/workflow/status/Quozul/PterodactylPowerAction/.github%2Fworkflows%2Fpush.yml?branch=master)](https://github.com/Quozul/PterodactylPowerAction/actions)
-[![Latest Release](https://img.shields.io/github/v/release/Quozul/PterodactylPowerAction)](https://github.com/Quozul/PterodactylPowerAction/releases)
-[![License](https://img.shields.io/github/license/Quozul/PterodactylPowerAction)](LICENSE)
-[![Discord](https://img.shields.io/discord/1373364651118694585)](https://discord.gg/M2a9dxJPRy)
+# CraftyPowerAction
 
 A resource-saving Velocity plugin that automatically manages your Minecraft servers by starting them on demand and
-shutting them down when idle, using either the [Pterodactyl](https://pterodactyl.io/) API or shell commands.
-
-> [!IMPORTANT]  
-> Support for this project is limited as I don't use it in production anymore.
+shutting them down when idle, using the [Crafty](https://craftycontrol.com/) API or shell commands.
 
 ---
 
-## Community & Support
-
-If you have any questions or suggestions, join the [Discord server](https://discord.gg/M2a9dxJPRy)!
+> [!IMPORTANT]  
+> This is a fork of Quozul's [PterodactylPowerAction](https://github.com/Quozul/PterodactylPowerAction) made compatible with the Crafty API. Support is limited.
 
 ## Features
 
@@ -49,7 +40,7 @@ Works with the Pterodactyl Panel API or via direct shell commands for self-hoste
 
 Supports customizable shutdown delays, multiple server status check methods, and adjustable shutdown behavior on proxy
 restart.  
-👉 See the [Wiki](https://github.com/Quozul/PterodactylPowerAction/wiki) for full details.
+👉 See the [Wiki](https://github.com/pelijot/CraftyPowerAction/wiki) for full details.
 
 ### 🌐 Multilingual Support
 
@@ -68,16 +59,12 @@ The plugin monitors player activity and shuts down empty servers to save resourc
 ![server-is-starting.png](docs/assets/server-is-starting.png)  
 _Shader is Photon._
 
-### Plus Version
-
-You can find more features on the [plus](https://github.com/Quozul/PterodactylPowerAction/tree/plus) branch.
-
 ---
 
 ## Documentation
 
 The documentation is available
-on [the wiki of this GitHub repository](https://github.com/Quozul/PterodactylPowerAction/wiki).
+on [the wiki of this GitHub repository](https://github.com/pelijot/CraftyPowerAction/wiki).
 
 ---
 
@@ -95,8 +82,9 @@ server!
 
 ## Motivations
 
-I am running Minecraft servers on dedicated hardware at home, I wanted to save energy costs and memory usage by stopping
-empty servers. Running the waiting server on a low power ARM Single Board Computer can also further save costs.
+I'm running all my Minecraft servers with the Crafty Web Panel and haven't found any solution for it. Quozul's Project was perfect and simple enough for rewriting the API code to use Crafty's formats.
+I don't have any real Java knowledge, though most of my rewrites were not that complicated.
+I will disclose that I used AI for debugging errors.
 
 ---
 

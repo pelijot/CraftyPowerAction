@@ -1,25 +1,25 @@
 # SERVER CONTROL METHOD
 # --------------------
 # Choose how the plugin will control your servers:
-#   - "pterodactyl": Use the Pterodactyl Panel API (recommended for panel users)
+#   - "crafty": Use the Craty Controller API (recommended for panel users)
 #   - "shell": Execute shell commands directly on the host system
-type: "pterodactyl"
+type: "crafty"
 
-# PTERODACTYL CONFIGURATION
+# CRAFTY CONTROLLER CONFIGURATION
 # ------------------------
-# Only required when type is set to "pterodactyl"
-# Create a client API key in your Pterodactyl panel under "Account Settings" > "API Credentials"
-# The URL path should be https://your-panel-domain.com/account/api
-pterodactyl_api_key: "ptlc_xxx"
-pterodactyl_client_api_base_url: "https://example.com/api/client"
+# Only required when type is set to "crafty"
+# Create a client API key in your Crafty panel under "Account Settings" > "API Keys"
+# Format (JSON Web Token):eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.xxxxxxx.xxxxxxx
+panel_api_key: ""
+panel_api_base_url: "https://example.com/api/v2"
 
 # SERVER MAPPINGS
 # --------------
 # Map your Velocity server names to their respective control identifiers:
-# - For Pterodactyl: Use the server's identifier from the panel (found under "Settings" > "Debug Information")
+# - For Crafty: Use the server's identifier from the panel (found in the Server Details "UUID")
 # - For Shell: Define start/stop commands and optional working directory
 servers:
-  # Example for Pterodactyl with whitelist check enabled:
+  # Example for Crafty with whitelist check enabled:
   survival:
     identifier: "abc123"
     whitelist: true
@@ -45,8 +45,8 @@ start_waiting_server_on_startup: true
 # ---------------------
 # Method used to determine if a server is running:
 #   - "ping": Uses Velocity's built-in ping (faster, lighter)
-#   - "pterodactyl": Uses the Pterodactyl API (may be more accurate, requires API configuration)
-ping_method: "pterodactyl"
+#   - "crafty": Uses the Crafty API (may be more accurate, requires API configuration)
+ping_method: "crafty"
 
 # TIMING SETTINGS
 # --------------
