@@ -15,13 +15,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        
+      - name: Checkout Messager dependency
+        uses: actions/checkout@v3
+        with:
+          repository: Pickaria/Messager
+          path: Messager
+          ref: 1.0-SNAPSHOT
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
-
+          
+      - name: Publish Messager to mavenLocal
+        working-directory: Messager
+        run: ./gradlew publishToMavenLocal
+        
       - name: Build Jar
         run: ./gradlew jar
 
