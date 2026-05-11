@@ -27,7 +27,18 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
+          
+      - name: Checkout Messager dependency
+        uses: actions/checkout@v3
+        with:
+          repository: Pickaria/Messager
+          path: Messager
+          ref: 1.0-SNAPSHOT
 
+      - name: Publish Messager to mavenLocal
+        working-directory: Messager
+        run: ./gradlew publishToMavenLocal
+        
       - name: Build Jar
         run: ./gradlew jar
 
