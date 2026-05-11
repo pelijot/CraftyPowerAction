@@ -10,9 +10,7 @@ Make sure the user can see the server on the panel and that the API Token has th
 
 Please make sure that Crafty can connect to the server.
 
-![crafty-unable-to-connect.png](docs/assets/crafty-unable-to-connect.png)
+![crafty-unable-to-connect.png](assets/crafty-unable-to-connect.png)
 
 If you see "Unable to connect" next to version or MOTD, look for an IP / Port missmatch inside of the 'Config' tab
-![port-missmatch.png](docs/assets/port-missmatch.png)
-
-
+![port-missmatch.png](assets/port-missmatch.png)
