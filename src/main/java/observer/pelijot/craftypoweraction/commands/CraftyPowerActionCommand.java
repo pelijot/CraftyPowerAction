@@ -38,7 +38,7 @@ public class CraftyPowerActionCommand {
         this.logger = logger;
         this.configurationLoader = configurationLoader;
         this.shutdownManager = shutdownManager;
-        this.messager = new Messager();
+        this.messager = Messager.builder().build();
     }
 
     public BrigadierCommand createBrigadierCommand() {
