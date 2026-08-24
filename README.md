@@ -34,7 +34,7 @@ Validate players against per-server whitelists before letting them join or start
 
 ### 🧰 Flexible Implementation
 
-Works with the Pterodactyl Panel API or via direct shell commands for self-hosted setups.
+Works with the Crafty API or via direct shell commands for self-hosted setups.
 
 ### ⚙️ Highly Configurable
 
@@ -53,7 +53,7 @@ Includes a built-in doctor command to validate configuration and help troublesho
 ## How it Works
 
 When a player tries to connect to an offline server, they're temporarily sent to your waiting server while
-PterodactylPowerAction starts their requested destination. Once the server is ready, they're automatically transferred.
+CraftyPowerAction starts their requested destination. Once the server is ready, they're automatically transferred.
 The plugin monitors player activity and shuts down empty servers to save resources.
 
 ![server-is-starting.png](docs/assets/server-is-starting.png)  
